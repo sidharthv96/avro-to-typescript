@@ -1,24 +1,22 @@
 import { BaseConverter } from "./base/BaseConverter";
 
 export class PrimitiveConverter extends BaseConverter {
+  public static isPrimitive(type: string): boolean {
+    return type in PrimitiveConverter.typeMap;
+  }
 
-    public convert(type: string): string {
-        switch (type) {
-            case "long":
-            case "int":
-            case "double":
-            case "float":
-                return "number";
-            case "string":
-                return "string";
-            case "bytes":
-                return "Buffer";
-            case "null":
-                return "null";
-            case "boolean":
-                return "boolean";
-            default:
-                return "any";
-        }
-    }
+  private static typeMap = {
+    long: "number",
+    int: "number",
+    double: "number",
+    float: "number",
+    string: "string",
+    bytes: "Buffer",
+    null: "null",
+    boolean: "boolean",
+  };
+
+  public convert(type: string): string {
+    return PrimitiveConverter.typeMap[type] || "any";
+  }
 }
