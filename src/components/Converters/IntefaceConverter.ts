@@ -42,23 +42,25 @@ export class IntefaceConverter extends RecordConverter {
 
   protected extractImports(data: RecordType): string[] {
     const rows: string[] = [];
-    const dirsUp: number = data.namespace.split(".").length;
 
     rows.push(`// tslint:disable`);
 
     for (const enumFile of this.enumExports) {
-      const importLine = `import { ${enumFile.name} } from "./${
-        enumFile.name
-      }Enum";`;
+      const importLine = `import { ${enumFile.name} } from "./${enumFile.name}Enum";`;
       rows.push(importLine);
     }
 
     for (const interfaceExport of this.interfaceExports) {
-      rows.push(
-        `import { ${this.getInterfaceName(
-          interfaceExport,
-        )} } from "./I${interfaceExport}";`,
-      );
+      if (
+        this.getInterfaceName(interfaceExport) !==
+        this.getInterfaceName(data.name)
+      ) {
+        rows.push(
+          `import { ${this.getInterfaceName(
+            interfaceExport
+          )} } from "./I${interfaceExport}";`
+        );
+      }
     }
 
     return rows;
@@ -69,7 +71,7 @@ export class IntefaceConverter extends RecordConverter {
     const TAB = SpecialCharacterHelper.TAB;
 
     interfaceRows.push(
-      `export interface ${this.getInterfaceName(data.name)} {`,
+      `export interface ${this.getInterfaceName(data.name)} {`
     );
 
     for (const field of data.fields) {

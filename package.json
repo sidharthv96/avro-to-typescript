@@ -1,6 +1,6 @@
 {
   "name": "@sidv/avro-to-typescript",
-  "version": "2.2.6",
+  "version": "2.2.9",
   "description": "Package for converting Avro schema files (.avsc) to TypeScript interface files",
   "keywords": [
     "avro",
@@ -23,6 +23,7 @@
   "scripts": {
     "start": "npm run build && node ./dist/src/index.js",
     "build": "tsc",
+    "buildWatch": "tsc -w",
     "prepublishOnly": "npm run generate-barrels",
     "generate-barrels": "barrelsby --directory src/ --delete --include components src/interfaces --exclude base",
     "test": "npm run tslint",
