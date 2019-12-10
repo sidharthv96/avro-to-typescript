@@ -1,0 +1,41 @@
+{
+  "namespace": "com.oracle.helios.schema",
+  "name": "Webhook",
+  "type": "record",
+  "fields": [
+    {
+      "name": "url",
+      "type": "string",
+      "default": ""
+    },
+    {
+      "name": "secret",
+      "type": "string",
+      "default": ""
+    },
+    {
+      "name": "created",
+      "type": "string",
+      "default": ""
+    },
+    {
+      "name": "state",
+      "type": {
+        "type": "enum",
+        "name": "WebhookState",
+        "symbols": ["enabled", "disabled", "blacklisted"]
+      },
+      "default": "enabled"
+    },
+    {
+      "name": "source_id",
+      "type": "string",
+      "default": ""
+    },
+    {
+      "name": "delete",
+      "type": "boolean",
+      "default": false
+    }
+  ]
+}

@@ -17,7 +17,7 @@ export class RecordConverter extends BaseConverter {
     const exportModel = new ExportModel();
     exportModel.name = data.name;
     exportModel.content = this.interfaceRows.join(
-      SpecialCharacterHelper.NEW_LINE,
+      SpecialCharacterHelper.NEW_LINE
     );
     this.exports.push(exportModel);
 
@@ -63,7 +63,7 @@ export class RecordConverter extends BaseConverter {
     }
 
     if (type instanceof Array) {
-      return type.map((t) => this.convertType(t)).join(" | ");
+      return type.map(t => this.convertType(t)).join(" | ");
     }
 
     if (TypeHelper.isRecordType(type)) {
@@ -87,7 +87,9 @@ export class RecordConverter extends BaseConverter {
 
   protected getField(field: Field): string {
     return `${field.name}${
-      TypeHelper.isOptional(field.type) ? "?" : ""
+      TypeHelper.isOptional(field.type) || TypeHelper.hasDefault(field)
+        ? "?"
+        : ""
     }: ${this.convertType(field.type)}`;
   }
 }
